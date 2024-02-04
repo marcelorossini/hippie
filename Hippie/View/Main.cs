@@ -14,12 +14,13 @@ using System.Linq;
 
 namespace Hippie
 {
-    public partial class Main : Form
+    public partial class FormMain : Form
     {
         private List<FileInfo> _files;
-        public Main()
+        public FormMain()
         {
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
        
         private async void button1_Click(object sender, EventArgs e)
@@ -30,12 +31,17 @@ namespace Hippie
         }
 
         private void Main_Load(object sender, EventArgs e)
-        {
-            _files = FileHelpers.GetAllFiles("C:\\Users\\marce\\OneDrive\\Área de Trabalho\\CAM", "*.gcr");
+        {            
+            Settings.Read();
+
+            if (string.IsNullOrEmpty(Settings.Current.DefaultDir))
+            {
+                buttonSettings.PerformClick();
+            }
+            
+            _files = FileHelpers.GetAllFiles(Settings.Current.DefaultDir, "*.gcr");
             foreach (var file in _files)
                 dataGridView.Rows.Add(file.Name);
-            Thread.Sleep(1000);
-            textBoxCode.Focus();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -60,6 +66,8 @@ namespace Hippie
             {             
                 string text = Helpers.RemoveAccents(textBoxCode.Text.Trim().ToLower())+" ";
                 var foundFiles = _files.Where(i => Helpers.RemoveAccents(i.FullName.ToLower()).Contains(text)).ToList();
+                textBoxCode.Text = "";
+
                 if (foundFiles.Count() == 1)
                 {
                     await Automation.OpenFile(foundFiles.First().FullName, this);
@@ -88,7 +96,7 @@ namespace Hippie
                         return;
                     }
 
-                    Form form = new FormSelection(frontFile.FullName, backFile.FullName);
+                    Form form = new FormSelection(this, frontFile.FullName, backFile.FullName);
                     form.ShowDialog();
                     return;
                 }
@@ -100,6 +108,21 @@ namespace Hippie
                 MessageBox.Show("Nenhum arquivo encontrado com esse filtro!");
                 return;
             }
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void FormMain_Shown(object sender, EventArgs e)
+        {
+            textBoxCode.Focus();
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

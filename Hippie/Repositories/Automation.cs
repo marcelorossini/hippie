@@ -77,13 +77,11 @@ namespace Hippie.Repositories
             WINAPI.LeftMouseClick(rect.Right - 100, rect.Bottom - 55);
         }
 
-        public static async Task OpenFile(string path, Form form = null)
+        public static async Task OpenFile(string path, FormMain form)
         {
-            bool hasForm = form != null;
 
 
-            if (hasForm)
-                ((Form)form).TopMost = false;
+            ((Form)form).TopMost = false;
 
             Helpers.ShowLoading(true);
             Process.Start(path);
@@ -100,11 +98,9 @@ namespace Hippie.Repositories
             await ClickPrintButton();
             Thread.Sleep(2000);
 
-            if (hasForm)
-            {
-                ((Form)form).TopMost = true;
-                WINAPI.SetForegroundWindow(form.Handle);
-            }
+            ((Form)form).TopMost = true;
+            WINAPI.SetForegroundWindow(form.Handle);
+            form.textBoxCode.Focus();
 
             //System.Windows.Forms.MessageBox.Show("Fim");
             Thread.Sleep(1000);

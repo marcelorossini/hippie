@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hippie.Repositories
@@ -10,7 +11,7 @@ namespace Hippie.Repositories
     public static class Helpers
     {
         private static FormLoading _formLoading;
-        static Helpers() 
+        static Helpers()
         {
             FormLoading formLoading = new FormLoading();
             _formLoading = formLoading;
@@ -31,7 +32,11 @@ namespace Hippie.Repositories
         public static void ShowLoading(bool show = true)
         {
             if (show)
-                _formLoading.Show();
+            {
+                Task.Factory.StartNew(() => {
+                    _formLoading.ShowDialog();
+                });
+            }
             else
                 _formLoading.Hide();
         }
