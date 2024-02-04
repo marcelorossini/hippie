@@ -26,7 +26,7 @@ namespace Hippie
         {
             string filename = dataGridView.CurrentCell.Value.ToString();
             string fileFullPath = _files.Find(i => i.Name == filename).FullName;
-            await Automation.OpenFile(fileFullPath, this.Handle);
+            await Automation.OpenFile(fileFullPath, this);
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace Hippie
                 var foundFiles = _files.Where(i => Helpers.RemoveAccents(i.FullName.ToLower()).Contains(text)).ToList();
                 if (foundFiles.Count() == 1)
                 {
-                    await Automation.OpenFile(foundFiles.First().FullName, this.Handle);
+                    await Automation.OpenFile(foundFiles.First().FullName, this);
                     return;
                 }
                 else if (foundFiles.Count() == 2)

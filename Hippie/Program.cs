@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Hippie.Repositories;
 
 namespace Hippie
 {
@@ -14,6 +15,7 @@ namespace Hippie
         [STAThread]
         static void Main()
         {
+            Automation.CleanTempDir();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());
