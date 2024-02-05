@@ -37,18 +37,17 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(42, 48);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(21, 25);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(556, 31);
+            this.textBox1.Size = new System.Drawing.Size(280, 20);
             this.textBox1.TabIndex = 0;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(498, 181);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonSave.Location = new System.Drawing.Point(249, 94);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(150, 44);
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Salvar";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -57,34 +56,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(18, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 25);
+            this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Pasta arquivos";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(597, 48);
+            this.button1.BackgroundImage = global::Hippie.Properties.Resources.folder;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Location = new System.Drawing.Point(298, 25);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(51, 31);
+            this.button1.Size = new System.Drawing.Size(26, 20);
             this.button1.TabIndex = 5;
-            this.button1.Text = "P";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // formSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 248);
+            this.ClientSize = new System.Drawing.Size(339, 129);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "formSettings";

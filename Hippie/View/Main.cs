@@ -42,6 +42,8 @@ namespace Hippie
             _files = FileHelpers.GetAllFiles(Settings.Current.DefaultDir, "*.gcr");
             foreach (var file in _files)
                 dataGridView.Rows.Add(file.Name);
+
+            dataGridView.Columns[0].HeaderText = Settings.Current.DefaultDir;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

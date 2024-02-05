@@ -69,14 +69,13 @@ namespace Hippie.View
             {
                 Hide();
                 Automation.OpenFile(_frontFile, _mainForm).Wait();
-                Close();
             }
             else if (e.KeyChar == 50)
             {
                 Hide();
                 Automation.OpenFile(_backFile, _mainForm).Wait();
-                Close();
             }
+            Close();
         }
 
 

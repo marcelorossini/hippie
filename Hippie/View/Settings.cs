@@ -35,6 +35,7 @@ namespace Hippie.View
 
         private void formSettings_Load(object sender, EventArgs e)
         {
+            textBox1.Text = Settings.Current.DefaultDir;
         }
 
         private void button1_Click(object sender, EventArgs e)
