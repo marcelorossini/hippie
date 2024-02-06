@@ -83,7 +83,7 @@ namespace Hippie.Repositories
 
             ((Form)form).TopMost = false;
 
-            Helpers.ShowLoading(true);
+            //Helpers.ShowLoading(true);
             Process.Start(path);
 
             IntPtr mainWindowHandle = await WaitForGarment();
@@ -94,17 +94,16 @@ namespace Hippie.Repositories
 
             await WaitFortTitleContainsText(path);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             await ClickPrintButton();
-            Thread.Sleep(2000);
+       
+            Thread.Sleep(15000);
 
             ((Form)form).TopMost = true;
             WINAPI.SetForegroundWindow(form.Handle);
             form.textBoxCode.Focus();
 
-            //System.Windows.Forms.MessageBox.Show("Fim");
-            Thread.Sleep(1000);
-            Helpers.ShowLoading(false);
+            //Helpers.ShowLoading(false);
         }
 
         public static void CleanTempDir()

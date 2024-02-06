@@ -67,6 +67,8 @@ namespace Hippie
             if (e.KeyChar == 13)
             {             
                 string text = Helpers.RemoveAccents(textBoxCode.Text.Trim().ToLower())+" ";
+                var textsplit = text.Split('-');
+                text = textsplit.Count() > 0 ? textsplit[0] : text;
                 var foundFiles = _files.Where(i => Helpers.RemoveAccents(i.FullName.ToLower()).Contains(text)).ToList();
                 textBoxCode.Text = "";
 
@@ -125,6 +127,11 @@ namespace Hippie
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void FormMain_ResizeEnd(object sender, EventArgs e)
+        {
+            textBoxCode.Focus();
         }
     }
 }
