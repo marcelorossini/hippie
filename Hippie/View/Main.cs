@@ -36,10 +36,9 @@ namespace Hippie
         {
             Settings.Read();
 
-            if (string.IsNullOrEmpty(Settings.Current.DefaultDir))
-            {
+            if (string.IsNullOrEmpty(Settings.Current.DefaultDir) || (!string.IsNullOrEmpty(Settings.Current.DefaultDir) && !Directory.Exists(Settings.Current.DefaultDir)))
                 buttonSettings.PerformClick();
-            }
+
             LoadGridData();
         }
 

@@ -93,6 +93,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formSettings_FormClosing);
             this.Load += new System.EventHandler(this.formSettings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

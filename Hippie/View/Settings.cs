@@ -57,5 +57,11 @@ namespace Hippie.View
                 MessageBox.Show("Por favor selecione a parta com arquivos das estampas");
             }
         }
+
+        private void formSettings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Settings.Current.DefaultDir))
+                Environment.Exit(0);
+        }
     }
 }
