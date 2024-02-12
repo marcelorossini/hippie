@@ -11,12 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
+using Hippie.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Hippie
 {
     public partial class FormMain : Form
     {
-        private List<FileInfo> _files;
+        private List<DatatableFile> _files;
         public FormMain()
         {
             InitializeComponent();
@@ -24,26 +26,40 @@ namespace Hippie
         }
        
         private async void button1_Click(object sender, EventArgs e)
-        {
-            string filename = dataGridView.CurrentCell.Value.ToString();
-            string fileFullPath = _files.Find(i => i.Name == filename).FullName;
+        {           
+            string filename = dataGridView.CurrentRow.Cells[3].Value.ToString();
+            string fileFullPath = _files.Find(i => i.Filename == filename).FullName;
             await Automation.OpenFile(fileFullPath, this);
         }
 
         private void Main_Load(object sender, EventArgs e)
-        {            
+        {
             Settings.Read();
 
             if (string.IsNullOrEmpty(Settings.Current.DefaultDir))
             {
                 buttonSettings.PerformClick();
             }
-            
-            _files = FileHelpers.GetAllFiles(Settings.Current.DefaultDir, "*.gcr");
-            foreach (var file in _files)
-                dataGridView.Rows.Add(file.Name);
+            LoadGridData();
+        }
 
-            dataGridView.Columns[0].HeaderText = Settings.Current.DefaultDir;
+        private void LoadGridData(string text = null)
+        {
+            dataGridView.Rows.Clear();
+            var filesFromPath = FileHelpers.GetAllFiles(Settings.Current.DefaultDir, "*.gcr");
+            _files = Helpers.FlexibleReadFiles(filesFromPath);
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                text = text.ToLower();
+                _files = _files.Where(i => Helpers.RemoveAccents(i.FullName.ToLower()).Contains(text) || i.Code.Contains(text)).ToList();
+            }
+
+            _files = _files.OrderBy(i => i.Order).ToList();
+            foreach (var file in _files)
+            {
+                dataGridView.Rows.Add(file.Type, file.Order, file.Directory, file.Filename);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -66,10 +82,11 @@ namespace Hippie
         {
             if (e.KeyChar == 13)
             {             
-                string text = Helpers.RemoveAccents(textBoxCode.Text.Trim().ToLower())+" ";
+                string text = Helpers.RemoveAccents(textBoxCode.Text.Trim().ToLower());
                 var textsplit = text.Split('-');
                 text = textsplit.Count() > 0 ? textsplit[0] : text;
-                var foundFiles = _files.Where(i => Helpers.RemoveAccents(i.FullName.ToLower()).Contains(text)).ToList();
+                text = text.Trim();
+                var foundFiles = _files.Where(i => i.Code == text).ToList();
                 textBoxCode.Text = "";
 
                 if (foundFiles.Count() == 1)
@@ -124,14 +141,35 @@ namespace Hippie
             textBoxCode.Focus();
         }
 
-        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void FormMain_ResizeEnd(object sender, EventArgs e)
         {
             textBoxCode.Focus();
+        }
+
+        private void textBoxGlobalSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                string originalText = textBoxGlobalSearch.Text.Trim();
+
+                if (!string.IsNullOrEmpty(originalText))
+                {
+                    string text = Helpers.RemoveAccents(originalText.ToLower());
+                    LoadGridData(text);
+                    labelPesquisa.Text = $@"Exibindo apenas resultados para a pesquisa ""{originalText}""";
+                }
+                else
+                {
+                    buttonClear.PerformClick();
+                }
+            }
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            LoadGridData();
+            labelPesquisa.Text = "";
+            textBoxGlobalSearch.Text = "";
         }
     }
 }

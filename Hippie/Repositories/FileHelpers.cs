@@ -12,7 +12,7 @@ namespace Hippie.Repositories
         public static List<FileInfo> GetAllFiles(string path, string filter = null)
         {
             var allFiles = new List<FileInfo>();
-            var files = Directory.GetFiles(path, filter);
+            var files = Directory.GetFiles(path, filter, System.IO.SearchOption.AllDirectories);
             foreach (var file in files) { 
                 allFiles.Add(new FileInfo(file));
             }

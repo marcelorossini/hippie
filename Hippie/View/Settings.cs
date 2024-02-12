@@ -30,7 +30,8 @@ namespace Hippie.View
             setting.DefaultDir = textBox1.Text;
             Settings.Save(setting);
             //Close();
-            Application.Restart();
+            System.Diagnostics.Process.Start(Application.ExecutablePath);
+            Application.Exit();
         }
 
         private void formSettings_Load(object sender, EventArgs e)
