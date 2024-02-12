@@ -60,6 +60,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ManagedWinapi">
       <HintPath>..\..\..\..\OneDrive\Documentos\managedwinapi-0.3\ManagedWinapi.dll</HintPath>
@@ -181,6 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
