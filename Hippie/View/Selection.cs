@@ -65,12 +65,12 @@ namespace Hippie.View
 
         private void KeyPressAction(KeyPressEventArgs e)
         {
-            if (e.KeyChar == 49)
+            if (e.KeyChar == 49 || e.KeyChar == 70 || e.KeyChar == 102)
             {
                 Hide();
                 Automation.OpenFile(_frontFile, _mainForm).Wait();
             }
-            else if (e.KeyChar == 50)
+            else if (e.KeyChar == 50 || e.KeyChar == 86 || e.KeyChar == 118)
             {
                 Hide();
                 Automation.OpenFile(_backFile, _mainForm).Wait();
@@ -78,6 +78,9 @@ namespace Hippie.View
             Close();
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
